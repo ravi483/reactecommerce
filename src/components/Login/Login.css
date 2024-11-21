@@ -1,44 +1,153 @@
-.login-container {
-    min-height: 100vh;
+/* Ensure the page is fully stretched and content is centered */
+.login-page {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #74b9ff, #a29bfe);
+  padding: 0; /* Removed extra padding */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  animation: backgroundAnimation 10s ease infinite;
+  max-width: 100%;
+}
+
+/* Keyframe Animation for Background */
+@keyframes backgroundAnimation {
+  0% {
     background: linear-gradient(135deg, #74b9ff, #a29bfe);
-    padding: 2rem;
   }
-  
-  .card {
-    border-radius: 15px;
-    overflow: hidden;
+  50% {
+    background: linear-gradient(135deg, #a29bfe, #74b9ff);
   }
-  
-  .card h2 {
-    color: #2d3436;
+  100% {
+    background: linear-gradient(135deg, #74b9ff, #a29bfe);
   }
-  
-  .card-body {
-    padding: 2rem;
+}
+
+/* Centered Login Box */
+.login-box {
+  border-radius: 10px;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+  background-color: white;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  max-width: 400px;
+  width: 350%;
+  margin-right: 500px; /* Ensure no margin to prevent squeezing */
+}
+
+/* Hover Effect for Login Box */
+.login-box:hover {
+  transform: translateY(-5px);
+}
+
+.login-box h2 {
+  color: #2d3436;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 500;
+  margin-bottom: 1.5rem;
+  text-align: center;
+  font-size: 2rem;
+}
+
+/* Form Control Styling */
+.login-box .form-control {
+  border-radius: 5px;
+  border: 1px solid #dfe6e9;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  transition: all 0.3s ease;
+}
+
+/* Focus Effect on Input Fields */
+.login-box .form-control:focus {
+  border-color: #0984e3;
+  box-shadow: 0 0 5px rgba(9, 132, 227, 0.5);
+}
+
+/* Button Styling */
+.login-box .btn-primary {
+  background-color: #0984e3;
+  border: none;
+  padding: 1rem;
+  border-radius: 5px;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  font-size: 1rem;
+  width: 100%;
+  cursor: pointer;
+}
+
+/* Button Hover Effect */
+.login-box .btn-primary:hover {
+  background-color: #74b9ff;
+  transform: translateY(-2px);
+}
+
+/* Button Active State */
+.login-box .btn-primary:active {
+  transform: translateY(1px);
+}
+
+/* Forgot Password Link */
+.login-box .forgot-password {
+  color: #636e72;
+  font-size: 0.9rem;
+  transition: color 0.3s ease;
+  display: block;
+  text-align: center;
+  margin-top: 1rem;
+}
+
+/* Forgot Password Hover Effect */
+.login-box .forgot-password:hover {
+  color: #2d3436;
+  text-decoration: underline;
+}
+
+/* New Registration Link */
+.login-box .register {
+  color: #636e72;
+  font-size: 0.9rem;
+  transition: color 0.3s ease;
+  display: block;
+  text-align: center;
+  margin-top: 1rem;
+}
+
+/* New Registration Link Hover Effect */
+.login-box .register:hover {
+  color: #2d3436;
+  text-decoration: underline;
+}
+
+/* Animation for Form Elements */
+.login-box .form-control,
+.login-box .btn-primary {
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+/* Keyframes for Fade-In Animation */
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
   }
-  
-  .card .form-control {
-    border-radius: 5px;
+  100% {
+    opacity: 1;
+    transform: translateY(0);
   }
-  
-  .card .btn-primary {
-    background-color: #0984e3;
-    border: none;
-    transition: background-color 0.3s ease;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .login-box {
+    width: 90%; /* Take up more width on smaller screens */
+    padding: 1.5rem; /* Adjust padding */
   }
-  
-  .card .btn-primary:hover {
-    background-color: #74b9ff;
+
+  /* Prevent squeezing of the login panel */
+  .login-page {
+    padding: 1rem;
   }
-  
-  .card .text-decoration-none {
-    color: #636e72;
-    font-size: 0.9rem;
-    transition: color 0.3s ease;
-  }
-  
-  .card .text-decoration-none:hover {
-    color: #2d3436;
-    text-decoration: underline;
-  }
-  
+}

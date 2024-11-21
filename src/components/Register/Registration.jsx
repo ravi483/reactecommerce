@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { Container, Form, Button, Alert } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";  // for navigation after registration
+import axios from 'axios';  // Import axios for HTTP requests
+import "../Register/Registration.css"
 
 const Registration = () => {
   const [name, setName] = useState("");
@@ -34,9 +36,24 @@ const Registration = () => {
       return;
     }
 
-    // Simulating a successful registration
-    setLoading(false);
-    navigate("/login");  // Redirect to login after successful registration
+    // Send registration data to the backend
+    try {
+      const response = await axios.post('http://localhost:5000/api/auth/register', {
+        name,
+        email,
+        phone,
+        address,
+        gender,
+        password,
+      });
+
+      // Handle successful registration
+      setLoading(false);
+      navigate("/login");  // Redirect to login after successful registration
+    } catch (error) {
+      setLoading(false);
+      setError(error.response?.data?.message || "An error occurred. Please try again.");
+    }
   };
 
   return (
@@ -124,7 +141,7 @@ const Registration = () => {
           </Button>
         </Form>
         <div className="links">
-          <p>Already have an account? <a href="/">Login</a></p>
+          <p>Already have an account? <a href="/login">Login</a></p>
         </div>
       </div>
     </Container>

@@ -1,63 +1,93 @@
 /* General layout for the page */
 .registration-page {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh; /* Full viewport height */
-    background-color: #f7f7f7;
-    margin: 0;
+  display: flex;
+  justify-content: center;
+  /* align-items: center; */
+  height: 100%; /* Full viewport height */
+  max-width: 100%;
+  background-color: #b9e37a;
+  margin: 0;
+}
+
+/* Square registration box */
+.registration-box {
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  max-height: 50%;
+  width: 90%; /* Take 90% of the width, but don't overflow */
+  max-width: 400px; /* Maximum width */
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* Vertically center the content */
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Hover effect */
+.registration-box:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+}
+
+/* Styling form elements */
+h2 {
+  margin-bottom: 20px;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #333; /* Darker text for visibility */
+}
+
+.form-control {
+  border-radius: 5px;
+  padding: 10px;
+  border: 1px solid #ddd;
+  margin-bottom: 15px;
+  font-size: 1rem;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Button styling */
+button {
+  border-radius: 5px;
+  padding: 12px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+/* Links (Already have an account) */
+.links {
+  font-size: 14px;
+  margin-top: 15px;
+}
+
+.links a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+.links a:hover {
+  text-decoration: underline;
+}
+/* Keyframe Animation for Background */
+@keyframes backgroundAnimation {
+  0% {
+    background: linear-gradient(135deg, #74b9ff, #a29bfe);
   }
-  
-  /* Square registration box */
-  .registration-box {
-    background-color: white;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    width: 90%; /* Take 90% of the width, but don't overflow */
-    max-width: 400px; /* Maximum width */
-    aspect-ratio: 1; /* Ensures the box stays square */
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    text-align: center;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  50% {
+    background: linear-gradient(135deg, #a29bfe, #74b9ff);
   }
-  
-  /* Hover effect */
-  .registration-box:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+  100% {
+    background: linear-gradient(135deg, #74b9ff, #a29bfe);
   }
-  
-  /* Styling form elements */
-  h2 {
-    margin-bottom: 20px;
-    font-size: 1.5rem;
-    font-weight: bold;
-  }
-  
-  .form-control {
-    border-radius: 5px;
-  }
-  
-  button {
-    border-radius: 5px;
-    width: 100%; /* Full width button */
-  }
-  
-  /* Links (Already have an account) */
-  .links {
-    font-size: 14px;
-    margin-top: 15px;
-  }
-  
-  .links a {
-    color: #007bff;
-    text-decoration: none;
-  }
-  
-  .links a:hover {
-    text-decoration: underline;
-  }
-  
+}

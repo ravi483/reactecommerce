@@ -1,4 +1,4 @@
-import { lazy, Suspense } from "react";
+import { lazy, Suspense, useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import NavBar from "./components/Navbar/Navbar";
@@ -10,13 +10,23 @@ import Login from "./components/Login/Login";
 import Register from "./components/Register/Registration";
 import PrivateRoute from "./components/PrivateRoute";
 
-
 const DashBoard = lazy(() => import("./pages/DashBoard"));
 const Home = lazy(() => import("./pages/Home"));
 const Shop = lazy(() => import("./pages/Shop"));
 const Cart = lazy(() => import("./pages/Cart"));
 const Product = lazy(() => import("./pages/Product"));
+
 function App() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  // Check if user is logged in on initial load
+  useEffect(() => {
+    const authToken = localStorage.getItem("authToken");
+    if (authToken) {
+      setIsLoggedIn(true);
+    }
+  }, []);
+
   return (
     <Suspense fallback={<Loader />}>
       <Router>
@@ -32,19 +42,19 @@ function App() {
           theme="light"
         />
         
-        <NavBar />
+        {/* Render NavBar only when user is logged in */}
+        {isLoggedIn && <NavBar />}
+        
         <Routes>
-          <Route path="/" element={<Login />} />
-          <Route path="/Register" element={<Register />} />
-          <Route path="/Home" element={<PrivateRoute component= {Home } />} />
-          <Route path="/dashboard" element={<PrivateRoute component={DashBoard} />}/>
-          <Route path="/shop" element={<PrivateRoute component= {Shop } />} />
-          <Route path="/shop/:id" element={<PrivateRoute component= {Product } />} />
-          <Route path="/cart" element={<PrivateRoute component= {Cart } />} />
-          <Route path="/shop" element={<PrivateRoute> <Shop /></PrivateRoute>
-          } 
-        />
+          <Route path="/login" element={<Login setIsLoggedIn={setIsLoggedIn} />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/home" element={<PrivateRoute element={Home} />} />
+          <Route path="/dashboard" element={<PrivateRoute element={DashBoard} />} />
+          <Route path="/shop" element={<PrivateRoute element={Shop} />} />
+          <Route path="/shop/:id" element={<PrivateRoute element={Product} />} />
+          <Route path="/cart" element={<PrivateRoute element={Cart} />} />
         </Routes>
+
         <Footer />
       </Router>
     </Suspense>
