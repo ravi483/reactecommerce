@@ -1,0 +1,63 @@
+/* General layout for the page */
+.registration-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Full viewport height */
+    background-color: #f7f7f7;
+    margin: 0;
+  }
+  
+  /* Square registration box */
+  .registration-box {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    width: 90%; /* Take 90% of the width, but don't overflow */
+    max-width: 400px; /* Maximum width */
+    aspect-ratio: 1; /* Ensures the box stays square */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  /* Hover effect */
+  .registration-box:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+  }
+  
+  /* Styling form elements */
+  h2 {
+    margin-bottom: 20px;
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+  
+  .form-control {
+    border-radius: 5px;
+  }
+  
+  button {
+    border-radius: 5px;
+    width: 100%; /* Full width button */
+  }
+  
+  /* Links (Already have an account) */
+  .links {
+    font-size: 14px;
+    margin-top: 15px;
+  }
+  
+  .links a {
+    color: #007bff;
+    text-decoration: none;
+  }
+  
+  .links a:hover {
+    text-decoration: underline;
+  }
+  

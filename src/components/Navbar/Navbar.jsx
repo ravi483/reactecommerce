@@ -1,27 +1,38 @@
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
 import { Container, Nav, Navbar } from "react-bootstrap";
 import "./navbar.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
+
 const NavBar = () => {
   const { cartList } = useSelector((state) => state.cart);
   const [expand, setExpand] = useState(false);
   const [isFixed, setIsFixed] = useState(false);
-  // fixed Header
-  function scrollHandler() {
-    if (window.scrollY >= 100) {
-      setIsFixed(true);
-    } else if (window.scrollY <= 50) {
-      setIsFixed(false);
-    }
-  }
-  window.addEventListener("scroll", scrollHandler);
-  // useEffect(() => {
-  //   if (CartItem.length === 0) {
-  //     const storedCart = localStorage.getItem("cartItem");
-  //     setCartItem(JSON.parse(storedCart));
-  //   }
-  // }, []);
+
+  const navigate = useNavigate(); // Hook for navigation
+
+  // Handle Logout
+  const handleLogout = () => {
+    localStorage.removeItem("authToken"); // Clear authToken from localStorage
+    navigate("/"); // Redirect to login page
+  };
+
+  // Fixed Header Scroll Handler
+  useEffect(() => {
+    const scrollHandler = () => {
+      if (window.scrollY >= 100) {
+        setIsFixed(true);
+      } else {
+        setIsFixed(false);
+      }
+    };
+
+    window.addEventListener("scroll", scrollHandler);
+    return () => {
+      window.removeEventListener("scroll", scrollHandler);
+    };
+  }, []);
+
   return (
     <Navbar
       fixed="top"
@@ -29,25 +40,13 @@ const NavBar = () => {
       className={isFixed ? "navbar fixed" : "navbar"}
     >
       <Container className="navbar-container">
-        <Navbar.Brand to="/">
+        <Navbar.Brand as={Link} to="/">
           <ion-icon name="bag"></ion-icon>
           <h1 className="logo">Multimart</h1>
         </Navbar.Brand>
         {/* Media cart and toggle */}
         <div className="d-flex">
           <div className="media-cart">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 24 24"
-              fill="black"
-              className="nav-icon"
-            >
-              <path
-                fillRule="evenodd"
-                d="M7.5 6a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM3.751 20.105a8.25 8.25 0 0116.498 0 .75.75 0 01-.437.695A18.683 18.683 0 0112 22.5c-2.786 0-5.433-.608-7.812-1.7a.75.75 0 01-.437-.695z"
-                clipRule="evenodd"
-              />
-            </svg>
             <Link
               aria-label="Go to Cart Page"
               to="/cart"
@@ -67,13 +66,9 @@ const NavBar = () => {
           <Navbar.Toggle
             aria-controls="basic-navbar-nav"
             onClick={() => {
-              setExpand(expand ? false : "expanded");
+              setExpand(!expand);
             }}
-          >
-            <span></span>
-            <span></span>
-            <span></span>
-          </Navbar.Toggle>
+          />
         </div>
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="justify-content-end flex-grow-1 pe-3">
@@ -81,10 +76,21 @@ const NavBar = () => {
               <Link
                 aria-label="Go to Home Page"
                 className="navbar-link"
-                to="/"
+                to="/Home"
                 onClick={() => setExpand(false)}
               >
                 <span className="nav-link-label">Home</span>
+              </Link>
+            </Nav.Item>
+
+            <Nav.Item>
+              <Link
+                aria-label="Go to Dashboard Page"
+                className="navbar-link"
+                to="/DashBoard"
+                onClick={() => setExpand(false)}
+              >
+                <span className="nav-link-label">DashBoard</span>
               </Link>
             </Nav.Item>
 
@@ -109,6 +115,7 @@ const NavBar = () => {
                 <span className="nav-link-label">Cart</span>
               </Link>
             </Nav.Item>
+
             <Nav.Item className="expanded-cart">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -138,8 +145,14 @@ const NavBar = () => {
                 </svg>
               </Link>
             </Nav.Item>
+
+
           </Nav>
         </Navbar.Collapse>
+        {/* Logout Button */}
+        <button type="button" className="btn btn-danger" onClick={handleLogout}>
+          Logout
+        </button>
       </Container>
     </Navbar>
   );

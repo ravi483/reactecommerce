@@ -6,6 +6,12 @@ import Footer from "./components/Footer/Footer";
 import Loader from "./components/Loader/Loader";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Login from "./components/Login/Login";
+import Register from "./components/Register/Registration";
+import PrivateRoute from "./components/PrivateRoute";
+
+
+const DashBoard = lazy(() => import("./pages/DashBoard"));
 const Home = lazy(() => import("./pages/Home"));
 const Shop = lazy(() => import("./pages/Shop"));
 const Cart = lazy(() => import("./pages/Cart"));
@@ -25,12 +31,19 @@ function App() {
           pauseOnHover
           theme="light"
         />
+        
         <NavBar />
         <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/shop" element={<Shop />} />
-          <Route path="/shop/:id" element={<Product />} />
-          <Route path="/cart" element={<Cart />} />
+          <Route path="/" element={<Login />} />
+          <Route path="/Register" element={<Register />} />
+          <Route path="/Home" element={<PrivateRoute component= {Home } />} />
+          <Route path="/dashboard" element={<PrivateRoute component={DashBoard} />}/>
+          <Route path="/shop" element={<PrivateRoute component= {Shop } />} />
+          <Route path="/shop/:id" element={<PrivateRoute component= {Product } />} />
+          <Route path="/cart" element={<PrivateRoute component= {Cart } />} />
+          <Route path="/shop" element={<PrivateRoute> <Shop /></PrivateRoute>
+          } 
+        />
         </Routes>
         <Footer />
       </Router>
